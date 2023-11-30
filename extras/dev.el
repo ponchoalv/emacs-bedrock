@@ -54,7 +54,19 @@
 ;; Magit: best Git client to ever exist
 (use-package magit
   :ensure t
-  :bind (("C-x g" . magit-status)))
+  :bind (("C-x g" . magit-status))
+  :config
+  (setq magit-diff-refine-hunk 'all))
+
+;; Open github/gitlab/bitbucket page
+(use-package browse-at-remote
+  :ensure t
+  :bind (:map vc-prefix-map
+         ("B" . browse-at-remote)))
+
+;; Git configuration modes
+(use-package git-modes
+  :ensure t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -62,14 +74,23 @@
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package markdown-mode
-  :hook ((markdown-mode . visual-line-mode)))
-
 (use-package yaml-mode
   :ensure t)
 
 (use-package json-mode
   :ensure t)
+
+(use-package terraform-ts-mode
+  :ensure t
+  :quelpa (terraform-ts-mode
+           :fetcher github
+           :repo "kgrotel/terraform-ts-mode"))
+  ;; clone it from https://github.com/kgrotel/terraform-ts-mode
+  ;; :load-path "~/paquetes/terraform-ts-mode")
+
+(use-package markdown-mode
+  :ensure t
+  :hook ((markdown-mode . visual-line-mode)))
 
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
@@ -89,8 +110,8 @@
   ;; no :ensure t here because it's built-in
 
   ;; Configure hooks to automatically turn-on eglot for selected modes
-  ; :hook
-  ; (((python-mode ruby-mode elixir-mode) . eglot))
+  :hook
+  (((python-mode json-mode json-ts-mode) . eglot))
 
   :custom
   (eglot-send-changes-idle-time 0.1)
@@ -100,5 +121,21 @@
   (fset #'jsonrpc--log-event #'ignore)  ; massive perf boost---don't log every event
   ;; Sometimes you need to tell Eglot where to find the language server
   ; (add-to-list 'eglot-server-programs
-  ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
-  )
+                                        ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman"))))
+
+
+;; Preview via `grip'
+;; Install: pip install grip
+(use-package grip-mode
+  :ensure t
+  :defines org-mode-map
+  :bind (("C-c p" . grip-mode))
+  :init
+  (with-eval-after-load 'org
+    (bind-key "C-c C-g" #'grip-mode org-mode-map))
+
+  (setq grip-update-after-change nil)
+  (when-let ((credential (auth-source-user-and-password "api.github.com")))
+    (setq grip-github-user (car credential)
+          grip-github-password (cadr credential))))

@@ -39,7 +39,7 @@
 (setopt citar-bibliography '("~/refs.bib")) ; paths to your bibtex files
 
 ;;; These variables are needed for Denote
-;(setopt denote-directory (expand-file-name "~/Docs/denote-notes/"))
+                                        ;(setopt denote-directory (expand-file-name "~/Docs/denote-notes/"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -60,11 +60,11 @@
 
 ;; Optional: if you have the embark package installed, enable the ability to act
 ;; on citations with Citar by invoking `embark-act'.
-;(use-package citar-embark
-;  :after citar embark
-;  :diminish ""
-;  :no-require
-;  :config (citar-embark-mode))
+                                        ;(use-package citar-embark
+                                        ;  :after citar embark
+                                        ;  :diminish ""
+                                        ;  :no-require
+                                        ;  :config (citar-embark-mode))
 
 (use-package citar-org-roam
   :diminish ""
@@ -107,6 +107,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package denote
+  :ensure t
   :config
   ;; Accept any symbol in a .dir-locals.el file; makes it easier to use silos.
   ;; See "silos" in the manual: https://protesilaos.com/emacs/denote

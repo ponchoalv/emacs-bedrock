@@ -53,6 +53,8 @@
          ("M-s s" . consult-line)       ; consult-line instead of isearch, bind
          ("M-s L" . consult-line-multi) ; isearch to M-s s
          ("M-s o" . consult-outline)
+         ;; Flymake
+         ("M-s !" . consult-flymake)
          ;; Isearch integration
          :map isearch-mode-map
          ("M-e" . consult-isearch-history)   ; orig. isearch-edit-string
@@ -63,6 +65,11 @@
   :config
   ;; Narrowing lets you restrict results to certain groups of candidates
   (setq consult-narrow-key "<"))
+
+;; Spell check options
+(use-package consult-flyspell
+  :ensure t
+  :bind ("M-g s" . consult-flyspell))
 
 (use-package embark
   :ensure t
@@ -85,7 +92,9 @@
   (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
 
 (use-package embark-consult
-  :ensure t)
+  :ensure t
+  :bind (:map minibuffer-mode-map
+         ("C-c C-o" . embark-export)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -180,3 +189,109 @@
   :ensure t
   :config
   (setq wgrep-auto-save-buffer t))
+
+
+;; Syntax check
+(use-package flymake
+  :diminish
+  :hook (prog-mode . flymake-mode)
+  :init (setq flymake-no-changes-timeout nil
+              flymake-fringe-indicator-position 'right-fringe)
+  :config
+  (setq elisp-flymake-byte-compile-load-path
+        (append elisp-flymake-byte-compile-load-path load-path)))
+
+(use-package sideline-flymake
+  :ensure t
+  :diminish sideline-mode
+  :hook (flymake-mode . sideline-mode)
+  :init (setq sideline-flymake-display-mode 'point
+              sideline-backends-right '(sideline-flymake)))
+
+;; Misc.
+(use-package simple
+  :ensure nil
+  :hook ((after-init . size-indication-mode)
+         (text-mode . visual-line-mode)
+         ((prog-mode markdown-mode conf-mode) . enable-trailing-whitespace))
+  :init
+  (setq column-number-mode t
+        line-number-mode t
+        ;; kill-whole-line t               ; Kill line including '\n'
+        line-move-visual nil
+        track-eol t                     ; Keep cursor at end of lines. Require line-move-visual is nil.
+        set-mark-command-repeat-pop t)  ; Repeating C-SPC after popping mark pops it again
+
+  ;; Visualize TAB, (HARD) SPACE, NEWLINE
+  (setq-default show-trailing-whitespace nil) ; Don't show trailing whitespace by default
+  (defun enable-trailing-whitespace ()
+    "Show trailing spaces and delete on saving."
+    (setq show-trailing-whitespace t)
+    (add-hook 'before-save-hook #'delete-trailing-whitespace nil t))
+
+  ;; Prettify the process list
+  (with-no-warnings
+    (defun my-list-processes--prettify ()
+      "Prettify process list."
+      (when-let ((entries tabulated-list-entries))
+        (setq tabulated-list-entries nil)
+        (dolist (p (process-list))
+          (when-let* ((val (cadr (assoc p entries)))
+                      (name (aref val 0))
+                      (pid (aref val 1))
+                      (status (aref val 2))
+                      (status (list status
+                                    'face
+                                    (if (memq status '(stop exit closed failed))
+                                        'error
+                                      'success)))
+                      (buf-label (aref val 3))
+                      (tty (list (aref val 4) 'face 'font-lock-doc-face))
+                      (thread (list (aref val 5) 'face 'font-lock-doc-face))
+                      (cmd (list (aref val 6) 'face 'completions-annotations)))
+            (push (list p (vector name pid status buf-label tty thread cmd))
+		          tabulated-list-entries)))))
+    (advice-add #'list-processes--refresh :after #'my-list-processes--prettify)))
+
+;; Misc
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (fset 'yes-or-no-p 'y-or-n-p))
+(setq-default major-mode 'text-mode
+              fill-column 80
+              tab-width 4
+              indent-tabs-mode nil)     ; Permanently indent with spaces, never with TABs
+
+(setq visible-bell t
+      inhibit-compacting-font-caches t  ; Don’t compact font caches during GC
+      delete-by-moving-to-trash t       ; Deleting files go to OS's trash folder
+      make-backup-files nil             ; Forbide to make backup files
+      auto-save-default nil             ; Disable auto save
+
+      uniquify-buffer-name-style 'post-forward-angle-brackets ; Show path if names are same
+      adaptive-fill-regexp "[ t]+|[ t]*([0-9]+.|*+)[ t]*"
+      adaptive-fill-first-line-regexp "^* *$"
+      sentence-end "\\([。！？]\\|……\\|[.?!][]\"')}]*\\($\\|[ \t]\\)\\)[ \t\n]*"
+      sentence-end-double-space nil
+      word-wrap-by-category t)
+
+
+;; Snippets
+(use-package yasnippet
+  :ensure t
+  :diminish yas-minor-mode
+  :hook (after-init . yas-global-mode))
+
+;; Collection of yasnippet snippets
+(use-package yasnippet-snippets
+  :ensure t)
+
+;; Yasnippet Completion At Point Function
+(use-package yasnippet-capf
+  :ensure t
+  :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
+
+;; get snippets
+(use-package consult-yasnippet
+  :ensure t
+  :bind ("M-g y" . consult-yasnippet))

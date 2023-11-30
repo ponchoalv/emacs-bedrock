@@ -41,7 +41,7 @@
 ;;; Phase 2 variables
 
 ;; Agenda variables
-(setq org-directory "~/Documents/org/") ; Non-absolute paths for agenda and
+(setq org-directory "~/Library/CloudStorage/OneDrive-BACKOFFICETECHNOLOGYLIMITED/org/") ; Non-absolute paths for agenda and
                                         ; capture templates will look here.
 
 (setq org-agenda-files '("inbox.org" "work.org"))
@@ -72,8 +72,8 @@
 ;;; Phase 3 variables
 
 ;; Org-roam variables
-(setq org-roam-directory "~/Documents/org-roam/")
-(setq org-roam-index-file "~/Documents/org-roam/index.org")
+(setq org-roam-directory (file-truename "~/Library/CloudStorage/OneDrive-BACKOFFICETECHNOLOGYLIMITED/org/roam"))
+(setq org-roam-index-file (file-truename "~/Library/CloudStorage/OneDrive-BACKOFFICETECHNOLOGYLIMITED/org/roam/index.org" ))
 
 ;;; Optional variables
 
@@ -95,7 +95,10 @@
 
   :bind (:map global-map
               ("C-c l s" . org-store-link)          ; Mnemonic: link → store
-              ("C-c l i" . org-insert-link-global)) ; Mnemonic: link → insert
+              ("C-c l i" . org-insert-link-global)  ; Mnemonic: link → insert
+	      ("C-c a" . org-agenda)
+              ("C-c b" . org-switchb)
+              ("C-c x" . org-capture))
   :config
   (require 'oc-csl)                     ; citation support
   (add-to-list 'org-export-backends 'md)
@@ -147,14 +150,52 @@
             ("w" "Work" agenda ""
              ((org-agenda-files '("work.org")))))))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
-;;;   Phase 3: extensions (org-roam, etc.)
+;;;   Phase 3: org babel, literal programming and friends
+;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package org
+  :config
+  ;; Babel
+
+  (setq org-confirm-babel-evaluate nil
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t)
+
+  (defconst load-language-alist
+    '((emacs-lisp . t)
+      (perl       . t)
+      (python     . t)
+      (ruby       . t)
+      (js         . t)
+      (css        . t)
+      (sass       . t)
+      (C          . t)
+      (java       . t)
+      (shell      . t)
+      (plantuml   . t))
+    "Alist of org ob languages.")
+
+ (org-babel-do-load-languages 'org-babel-load-languages
+                               load-language-alist)
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;
+;;;   Phase 4: extensions (org-roam, etc.)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org-roam
   :ensure t
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ("C-c n j" . org-roam-dailies-capture-today))
   :config
   (org-roam-db-autosync-mode)
   ;; Dedicated side window for backlinks
