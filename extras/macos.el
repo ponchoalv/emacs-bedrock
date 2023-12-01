@@ -54,11 +54,6 @@
 
 ;;; Reasonable defaults for macOS
 
-;; Use spotlight search backend as a default for M-x locate (and helm/ivy
-;; variants thereof), since it requires no additional setup.
-;; (setq locate-command (executable-find "mdfind"))
-
-;;
 ;;; Compatibilty fixes
 
 ;; Curse Lion and its sudden but inevitable fullscreen mode!

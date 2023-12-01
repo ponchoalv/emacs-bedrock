@@ -1,26 +1,3 @@
-;;; Emacs Bedrock
-;;;
-;;; Extra config: Researcher
-
-;;; Usage: Append or require this file from init.el for research helps. If you
-;;; write papers in LaTeX and need to manage your citations or keep track of
-;;; notes, this set of packages is for you.
-;;;
-;;; Denote is a simpler alternative to Org-roam: instead of maintaining a
-;;; database along side your files, Denote works by enforcing a particular file
-;;; naming strategy. This makes it easy to link and tag notes, much in the same
-;;; way that Org-roam does. It's generally advisable to not mix Org-roam and
-;;; Denote in the same directory.
-;;;
-;;; NOTE: the packages Citar and Org-roam live on the MELPA repository; you will
-;;; need to update the `package-archives' variable in init.el before before
-;;; loading this; see the comment in init.el under "Package initialization".
-;;;
-;;; Highly recommended to enable this file with the UI enhancements in
-;;; `base.el', as Citar works best with the Vertico completing-read interface.
-;;; Also recommended is the `writer.el' extra config, which adds some nice features for
-;;; spell-checking etc.
-
 ;;; Contents:
 ;;;
 ;;;  - Citation Management
