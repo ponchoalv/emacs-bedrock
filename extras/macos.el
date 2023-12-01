@@ -14,6 +14,26 @@
       (with-current-buffer buffer
         (funcall (default-value 'major-mode)))))
 
+(defun +macos/open-finder ()
+  "Open finder in the directory of the current file"
+  (interactive)
+  (call-process-shell-command (concat (executable-find "open") " " (file-name-directory buffer-file-truename))))
+
+(defun +macos/open-finder-project ()
+  "Open finder in the directory of the current project"
+  (interactive)
+  (call-process-shell-command (concat (executable-find "open") " " (project-root (project-current)))))
+
+(defun +macos/open-iterm ()
+  "Open iterm in the directory of the current file"
+  (interactive)
+  (call-process-shell-command (concat (executable-find "open") " -a iTerm " (file-name-directory buffer-file-truename))))
+
+(defun +macos/open-iterm-project ()
+  "Open iterm in the directory of the current project"
+  (interactive)
+  (call-process-shell-command (concat (executable-find "open") " -a iTerm " (project-root (project-current)))))
+
 ;; Some usefull macos key bindings
 (use-package emacs
   :bind (("s-w" . delete-window)
