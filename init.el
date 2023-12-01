@@ -253,6 +253,9 @@ If the new path's directories does not exist, create them."
 ;; Editing
 (load-file (expand-file-name "extras/edit.el" user-emacs-directory))
 
+;; MAC-OS common shortcuts
+(load-file (expand-file-name "extras/macos.el" user-emacs-directory))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Built-in customization framework
@@ -267,7 +270,7 @@ If the new path's directories does not exist, create them."
  '(custom-safe-themes
    '("7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" default))
  '(package-selected-packages
-   '(browse-at-remote git-modes consult-flyspell consult-yasnippet yasnippet-capf yasnippet-snippets yasnippet sideline-flymake markdown-toc grip-mode markdown-mode nerd-icons minions doom-modeline terraform-ts-mode quelpa-use-package quelpa goggles diff-hl symbol-overlay treesit-auto spacemacs-theme org-roam which-key)))
+   '(consult-xref consult-eglot go-gen-test go-tag go-impl go-fill-struct go-dlv go-playground go-mode multi-vterm vterm multi-term ibuffer-project nerd-icons-ibuffer consult-flyspell consult-yasnippet yasnippet-capf yasnippet-snippets yasnippet sideline-flymake markdown-toc grip-mode markdown-mode nerd-icons minions doom-modeline terraform-ts-mode quelpa-use-package quelpa goggles diff-hl symbol-overlay treesit-auto spacemacs-theme org-roam which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

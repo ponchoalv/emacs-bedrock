@@ -12,10 +12,6 @@
   :ensure t
   :hook (doom-modeline-mode . minions-mode))
 
-;; Icons
-(use-package nerd-icons
-  :ensure t)
-
 ;; Highlight symbols
 (use-package symbol-overlay
   :ensure t

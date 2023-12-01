@@ -54,19 +54,7 @@
 ;; Magit: best Git client to ever exist
 (use-package magit
   :ensure t
-  :bind (("C-x g" . magit-status))
-  :config
-  (setq magit-diff-refine-hunk 'all))
-
-;; Open github/gitlab/bitbucket page
-(use-package browse-at-remote
-  :ensure t
-  :bind (:map vc-prefix-map
-         ("B" . browse-at-remote)))
-
-;; Git configuration modes
-(use-package git-modes
-  :ensure t)
+  :bind (("C-x g" . magit-status)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -90,7 +78,9 @@
 
 (use-package markdown-mode
   :ensure t
-  :hook ((markdown-mode . visual-line-mode)))
+  :hook ((markdown-mode . visual-line-mode))
+  :config
+  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman"))))
 
 ;; Emacs ships with a lot of popular programming language modes. If it's not
 ;; built in, you're almost certain to find a mode for the language you're
@@ -122,7 +112,7 @@
   ;; Sometimes you need to tell Eglot where to find the language server
   ; (add-to-list 'eglot-server-programs
                                         ;              '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
-  (add-to-list 'eglot-server-programs '(markdown-mode . ("marksman"))))
+  )
 
 
 ;; Preview via `grip'
@@ -139,3 +129,6 @@
   (when-let ((credential (auth-source-user-and-password "api.github.com")))
     (setq grip-github-user (car credential)
           grip-github-password (cadr credential))))
+
+;; load golang configs
+(load-file (expand-file-name "extras/go.el" user-emacs-directory))

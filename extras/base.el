@@ -1,19 +1,4 @@
 ;;; Emacs Bedrock
-;;;
-;;; Extra config: Base enhancements
-
-;;; Usage: Append or require this file from init.el to enable various UI/UX
-;;; enhancements.
-;;;
-;;; The consult package in particular has a vast number of functions that you
-;;; can use as replacements to what Emacs provides by default. Please see the
-;;; consult documentation for more information and help:
-;;;
-;;;     https://github.com/minad/consult
-;;;
-;;; In particular, many users may find `consult-line' to be more useful to them
-;;; than isearch, so binding this to `C-s' might make sense. This is left to the
-;;; user to configure, however, as isearch and consult-line are not equivalent.
 
 ;;; Contents:
 ;;;
@@ -21,6 +6,45 @@
 ;;;  - Power-ups: Embark and Consult
 ;;;  - Minibuffer and completion
 ;;;  - Misc. editing enhancements
+
+
+;; Select stuff correctly
+
+;;;###autoload
+(defun poncho-thing-at-point-or-region (&optional thing prompt)
+  "Grab the current selection, THING at point, or xref identifier at point.
+
+Returns THING if it is a string. Otherwise, if nothing is found at point and
+PROMPT is non-nil, prompt for a string (if PROMPT is a string it'll be used as
+the prompting string). Returns nil if all else fails.
+
+NOTE: Don't use THING for grabbing symbol-at-point. The xref fallback is smarter
+in some cases."
+  (declare (side-effect-free t))
+  (cond ((stringp thing)
+         thing)
+        ((use-region-p)
+         (buffer-substring-no-properties
+          (region-beginning)
+          (region-end)))
+        (thing
+         (thing-at-point thing t))
+        ((require 'xref nil t)
+         ;; Eglot, nox (a fork of eglot), and elpy implementations for
+         ;; `xref-backend-identifier-at-point' betray the documented purpose of
+         ;; the interface. Eglot/nox return a hardcoded string and elpy prepends
+         ;; the line number to the symbol.
+         (if (memq (xref-find-backend) '(eglot elpy nox))
+             (thing-at-point 'symbol t)
+           ;; A little smarter than using `symbol-at-point', though in most
+           ;; cases, xref ends up using `symbol-at-point' anyway.
+           (xref-backend-identifier-at-point (xref-find-backend))))
+        (prompt
+         (read-string (if (stringp prompt) prompt "")))))
+
+;; Icons
+(use-package nerd-icons
+  :ensure t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -43,6 +67,11 @@
 ;; Consult: Misc. enhanced commands
 (use-package consult
   :ensure t
+  :init
+  ;; Use Consult to select xref locations with preview
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+
   :bind (
          ;; Drop-in replacements
          ("C-x b" . consult-buffer)     ; orig. switch-to-buffer
@@ -53,6 +82,9 @@
          ("M-s s" . consult-line)       ; consult-line instead of isearch, bind
          ("M-s L" . consult-line-multi) ; isearch to M-s s
          ("M-s o" . consult-outline)
+         ("M-s !" . consult-flymake) ;; list errors
+         ("M-s f" . consult-find)
+         ("M-s /" . consult-ripgrep-at-point)
          ;; Flymake
          ("M-s !" . consult-flymake)
          ;; Isearch integration
@@ -64,7 +96,21 @@
          )
   :config
   ;; Narrowing lets you restrict results to certain groups of candidates
-  (setq consult-narrow-key "<"))
+  (setq consult-narrow-key "<")
+  ;; (setq consult-locate-args (concat (executable-find "mdfind") " -name"))
+  (setq consult-locate-args "locate")
+
+  (defalias 'consult-ripgrep-at-point 'consult-ripgrep)
+  (consult-customize
+   consult-line consult-outline consult-line-multi consult-ripgrep-at-point consult-find :initial (poncho-thing-at-point-or-region))
+
+  (use-package consult-eglot
+    :ensure t
+    :bind (:map eglot-mode-map
+                ("M-C-." . consult-eglot-symbols)))
+
+  (consult-customize
+   consult-eglot-symbols :initial (poncho-thing-at-point-or-region)))
 
 ;; Spell check options
 (use-package consult-flyspell
@@ -123,6 +169,11 @@
 ;; Popup completion-at-point
 (use-package corfu
   :ensure t
+  :custom
+  (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-preview-current nil)
+  (corfu-auto-delay 0.1)
   :init
   (global-corfu-mode)
   :bind
@@ -154,7 +205,12 @@
   :ensure t
   :init
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-elisp-block)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-abbrev)
+
+  (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
 ;; Pretty icons for corfu
 (use-package kind-icon
@@ -164,6 +220,7 @@
   :config
   (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
+;; shell stuff
 (use-package eshell
   :init
   (defun bedrock/setup-eshell ()
@@ -171,6 +228,33 @@
     ;; a work-around to make C-r bound in the keymap
     (keymap-set eshell-mode-map "C-r" 'consult-history))
   :hook ((eshell-mode . bedrock/setup-eshell)))
+
+(use-package vterm
+  :ensure t
+  :bind (:map vterm-mode-map
+              ([f9] . (lambda ()
+                        (interactive)
+                        (and (fboundp 'shell-pop-toggle)
+                             (shell-pop-toggle)))))
+  :init (setq vterm-always-compile-module t))
+
+(use-package multi-vterm
+  :ensure t
+  :bind ("C-c t" . multi-vterm)
+  :custom (multi-vterm-buffer-name "vterm")
+  :config
+  (with-no-warnings
+    ;; Use `pop-to-buffer' instead of `switch-to-buffer'
+    (defun my-multi-vterm ()
+      "Create new vterm buffer."
+      (interactive)
+      (let ((vterm-buffer (multi-vterm-get-buffer)))
+        (setq multi-vterm-buffer-list
+              (nconc multi-vterm-buffer-list (list vterm-buffer)))
+        (set-buffer vterm-buffer)
+        (multi-vterm-internal)
+        (pop-to-buffer vterm-buffer)))
+    (advice-add #'multi-vterm :override #'my-multi-vterm)))
 
 ;; Orderless: powerful completion style
 (use-package orderless
@@ -295,3 +379,35 @@
 (use-package consult-yasnippet
   :ensure t
   :bind ("M-g y" . consult-yasnippet))
+
+
+;; use ibuffer for listing buffers
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer)
+  :init (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
+
+;; Display icons for buffers
+(use-package nerd-icons-ibuffer
+  :ensure t
+  :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
+
+;; Group ibuffer's list by project
+(use-package ibuffer-project
+  :ensure t
+  :hook (ibuffer . (lambda ()
+                     "Group ibuffer's list by project."
+                     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups))
+                     (unless (eq ibuffer-sorting-mode 'project-file-relative)
+                       (ibuffer-do-sort-by-project-file-relative))))
+  :init (setq ibuffer-project-use-cache t)
+  :config
+  (defun my-ibuffer-project-group-name (root type)
+    "Return group name for project ROOT and TYPE."
+    (if (and (stringp type) (> (length type) 0))
+        (format "%s %s" type root)
+      (format "%s" root)))
+      (progn
+        (advice-add #'ibuffer-project-group-name :override #'my-ibuffer-project-group-name)
+        (setq ibuffer-project-root-functions
+              `((ibuffer-project-project-root . ,(nerd-icons-octicon "nf-oct-repo" :height 1.2 :face ibuffer-filter-group-name-face))
+                (file-remote-p . ,(nerd-icons-codicon "nf-cod-radio_tower" :height 1.2 :face ibuffer-filter-group-name-face))))))
