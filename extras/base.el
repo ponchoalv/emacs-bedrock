@@ -46,6 +46,22 @@ in some cases."
 (use-package nerd-icons
   :ensure t)
 
+;; Restore old window configurations
+(use-package winner
+  :ensure nil
+  :commands (winner-undo winner-redo)
+  :hook (after-init . winner-mode)
+  :init (setq winner-boring-buffers '("*Completions*"
+                                      "*Compile-Log*"
+                                      "*inferior-lisp*"
+                                      "*Fuzzy Completions*"
+                                      "*Apropos*"
+                                      "*Help*"
+                                      "*cvs*"
+                                      "*Buffer List*"
+                                      "*Ibuffer*"
+                                      "*esh command on file*")))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Motion aids

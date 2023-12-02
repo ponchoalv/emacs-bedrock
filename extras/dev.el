@@ -116,3 +116,9 @@
 
 ;; load golang configs
 (load-file (expand-file-name "extras/go.el" user-emacs-directory))
+
+;; load elisp config
+(load-file (expand-file-name "extras/elisp.el" user-emacs-directory))
+
+;; lsp in org-babel files
+(load-file (expand-file-name "extras/lsp-org.el" user-emacs-directory))
