@@ -1,3 +1,16 @@
+
+;; Smartparents for lisp pleasure
+(use-package smartparens-mode
+  :ensure smartparens  ;; install the package
+  :bind (("C-{" . sp-forward-barf-sexp)
+         ("C-}" . sp-forward-slurp-sexp)
+         ("C-M-}" . sp-backward-barf-sexp)
+         ("C-M-{" . sp-backward-slurp-sexp))
+  :hook (prog-mode text-mode markdown-mode org-mode) ;; add `smartparens-mode` to these hooks
+  :config
+  ;; load default config
+  (require 'smartparens-config))
+
 ;; Delete selection if you insert
 (use-package delsel
   :ensure nil

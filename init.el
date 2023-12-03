@@ -44,7 +44,7 @@
 ;; If you want to turn off the welcome screen, uncomment this
 (setopt inhibit-splash-screen t)
 
-(setopt initial-major-mode 'emacs-lisp-mode)  ; default mode for the *scratch* buffer
+(setopt initial-major-mode 'lisp-interaction-mode)  ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
 
 ;; Automatically reread from disk if the underlying file changes
@@ -258,7 +258,7 @@ If the new path's directories does not exist, create them."
  '(custom-safe-themes
    '("7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" default))
  '(package-selected-packages
-   '(overseer helpful highlight-defined consult-xref consult-eglot go-gen-test go-tag go-impl go-fill-struct go-dlv go-playground go-mode multi-vterm vterm multi-term ibuffer-project nerd-icons-ibuffer consult-flyspell consult-yasnippet yasnippet-capf yasnippet-snippets yasnippet sideline-flymake markdown-toc grip-mode markdown-mode nerd-icons minions doom-modeline terraform-ts-mode quelpa-use-package quelpa goggles diff-hl symbol-overlay treesit-auto spacemacs-theme org-roam which-key)))
+   '(persistent-scratch smartparens overseer helpful highlight-defined consult-xref consult-eglot go-gen-test go-tag go-impl go-fill-struct go-dlv go-playground go-mode multi-vterm vterm multi-term ibuffer-project nerd-icons-ibuffer consult-flyspell consult-yasnippet yasnippet-capf yasnippet-snippets yasnippet sideline-flymake markdown-toc grip-mode markdown-mode nerd-icons minions doom-modeline terraform-ts-mode quelpa-use-package quelpa goggles diff-hl symbol-overlay treesit-auto spacemacs-theme org-roam which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -114,6 +114,22 @@
     (setq grip-github-user (car credential)
           grip-github-password (cadr credential))))
 
+;; Persistent the scratch buffer
+(use-package persistent-scratch
+  :ensure t
+  :diminish
+  :bind (:map persistent-scratch-mode-map
+         ([remap kill-buffer] . (lambda (&rest _)
+                                  (interactive)
+                                  (user-error "Scratch buffer cannot be killed")))
+         ([remap revert-buffer] . persistent-scratch-restore)
+         ([remap revert-this-buffer] . persistent-scratch-restore))
+  :hook ((after-init . persistent-scratch-autosave-mode)
+         (lisp-interaction-mode . persistent-scratch-mode))
+  :init (setq persistent-scratch-backup-file-name-format "%Y-%m-%d"
+              persistent-scratch-backup-directory
+              (expand-file-name "persistent-scratch" user-emacs-directory)))
+
 ;; load golang configs
 (load-file (expand-file-name "extras/go.el" user-emacs-directory))
 
