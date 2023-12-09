@@ -157,7 +157,8 @@
       (C          . t)
       (java       . t)
       (shell      . t)
-      (plantuml   . t))
+      (plantuml   . t)
+      (go         . t))
     "Alist of org ob languages.")
 
  (org-babel-do-load-languages 'org-babel-load-languages
@@ -168,6 +169,10 @@
 ;;;   Phase 4: extensions (org-roam, etc.)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package ob-go
+  :ensure t
+  :diminish)
 
 (use-package org-roam
   :ensure t

@@ -1,6 +1,6 @@
-;; Theme
-(use-package spacemacs-theme
- :ensure t)
+;; ;; Theme
+;; (use-package spacemacs-theme
+;;  :ensure t)
 
 ;; Nicer modeline
 (use-package doom-modeline
