@@ -200,8 +200,37 @@ If the new path's directories does not exist, create them."
 (use-package emacs
   :config
   (mapc #'disable-theme custom-enabled-themes)
-  (setopt modus-themes-org-blocks 'gray-background)
-  (load-theme 'modus-vivendi t) ; for light theme, use modus-operandi
+
+  ;; (setopt modus-themes-region '(bg-only))
+
+  ;; (setopt modus-themes-headings
+  ;;     '((1 . (rainbow overline background 1.4))
+  ;;       (2 . (rainbow background 1.3))
+  ;;       (3 . (rainbow bold 1.2))
+  ;;       (t . (semilight 1.1)))
+
+  ;; ;; Important!
+  ;; (setopt modus-themes-scale-headings t)
+  ;; (setopt modus-themes-org-blocks 'gray-background)
+
+  ;; (setopt modus-themes-mode-line '(accented borderless)
+  ;;     modus-themes-bold-constructs t
+  ;;     modus-themes-italic-constructs t
+  ;;     modus-themes-fringes 'subtle
+  ;;     modus-themes-tabs-accented t
+  ;;     modus-themes-paren-match '(bold intense)
+  ;;     modus-themes-prompts '(bold intense)
+  ;;     modus-themes-org-blocks 'tinted-background
+  ;;     modus-themes-scale-headings t
+  ;;     modus-themes-region '(accented bg-only)
+  ;;     modus-themes-headings
+  ;;     '((1 . (rainbow overline background 1.4))
+  ;;       (2 . (rainbow background 1.3))
+  ;;       (3 . (rainbow bold 1.2))
+  ;;       (t . (semilight 1.1))))
+  ;; (load-theme 'modus-vivendi t) ; for light theme, use modus-operandi
+
+  (load-theme 'spacemacs-dark t)
   (setopt mouse-autoselect-window t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -259,7 +288,7 @@ If the new path's directories does not exist, create them."
  '(custom-safe-themes
    '("7fd8b914e340283c189980cd1883dbdef67080ad1a3a9cc3df864ca53bdc89cf" default))
  '(package-selected-packages
-   '(ob-go persistent-scratch smartparens overseer helpful highlight-defined consult-xref consult-eglot go-gen-test go-tag go-impl go-fill-struct go-dlv go-playground go-mode multi-vterm vterm multi-term ibuffer-project nerd-icons-ibuffer consult-flyspell consult-yasnippet yasnippet-capf yasnippet-snippets yasnippet sideline-flymake markdown-toc grip-mode markdown-mode nerd-icons minions doom-modeline terraform-ts-mode quelpa-use-package quelpa goggles diff-hl symbol-overlay treesit-auto org-roam which-key)))
+   '(spacemacs-theme ob-go persistent-scratch smartparens overseer helpful highlight-defined consult-xref consult-eglot go-gen-test go-tag go-impl go-fill-struct go-dlv go-playground go-mode multi-vterm vterm multi-term ibuffer-project nerd-icons-ibuffer consult-flyspell consult-yasnippet yasnippet-capf yasnippet-snippets yasnippet sideline-flymake markdown-toc grip-mode markdown-mode nerd-icons minions doom-modeline terraform-ts-mode quelpa-use-package quelpa goggles diff-hl symbol-overlay treesit-auto org-roam which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
