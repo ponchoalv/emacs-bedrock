@@ -140,8 +140,13 @@
 
 (use-package org
   :config
-  ;; Babel
 
+  ;; add support to go programs in org-babel
+  (use-package ob-go
+  :ensure t
+  :diminish)
+
+  ;; Babel
   (setq org-confirm-babel-evaluate nil
         org-src-fontify-natively t
         org-src-tab-acts-natively t)
@@ -169,10 +174,6 @@
 ;;;   Phase 4: extensions (org-roam, etc.)
 ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package ob-go
-  :ensure t
-  :diminish)
 
 (use-package org-roam
   :ensure t
