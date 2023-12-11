@@ -5,7 +5,10 @@
 ;; Nicer modeline
 (use-package doom-modeline
   :ensure t
-  :hook (after-init . doom-modeline-mode))
+  :hook (after-init . doom-modeline-mode)
+  :config
+
+  (setopt doom-modeline-buffer-file-name-style 'relative-from-project))
 
 ;; A minor-mode menu for mode-line
 (use-package minions
