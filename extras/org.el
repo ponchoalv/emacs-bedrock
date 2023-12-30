@@ -22,7 +22,7 @@
 ;;; Phase 2 variables
 
 ;; Agenda variables
-(setq org-directory "~/Library/CloudStorage/OneDrive-BACKOFFICETECHNOLOGYLIMITED/org/") ; Non-absolute paths for agenda and
+(setq org-directory "~/org/") ; Non-absolute paths for agenda and
                                         ; capture templates will look here.
 
 (setq org-agenda-files '("inbox.org" "work.org"))
@@ -53,8 +53,8 @@
 ;;; Phase 3 variables
 
 ;; Org-roam variables
-(setq org-roam-directory (file-truename "~/Library/CloudStorage/OneDrive-BACKOFFICETECHNOLOGYLIMITED/org/roam"))
-(setq org-roam-index-file (file-truename "~/Library/CloudStorage/OneDrive-BACKOFFICETECHNOLOGYLIMITED/org/roam/index.org" ))
+(setq org-roam-directory (file-truename "~/org/roam"))
+(setq org-roam-index-file (file-truename "~/org/roam/index.org" ))
 
 ;;; Optional variables
 
