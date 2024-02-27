@@ -16,44 +16,44 @@
   :hook (doom-modeline-mode . minions-mode))
 
 ;; Highlight symbols
-(use-package symbol-overlay
-  :ensure t
-  :custom-face
-  (symbol-overlay-default-face ((t (:inherit region :background unspecified :foreground unspecified))))
-  (symbol-overlay-face-1 ((t (:inherit nerd-icons-blue :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-2 ((t (:inherit nerd-icons-pink :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-3 ((t (:inherit nerd-icons-yellow :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-4 ((t (:inherit nerd-icons-purple :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-5 ((t (:inherit nerd-icons-red :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-6 ((t (:inherit nerd-icons-orange :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-7 ((t (:inherit nerd-icons-green :background unspecified :foreground unspecified :inverse-video t))))
-  (symbol-overlay-face-8 ((t (:inherit nerd-icons-cyan :background unspecified :foreground unspecified :inverse-video t))))
-  :bind (("M-i" . symbol-overlay-put)
-         ("M-n" . symbol-overlay-jump-next)
-         ("M-p" . symbol-overlay-jump-prev)
-         ("M-N" . symbol-overlay-switch-forward)
-         ("M-P" . symbol-overlay-switch-backward)
-         ("M-C" . symbol-overlay-remove-all)
-         ([M-f3] . symbol-overlay-remove-all))
-  :hook (((prog-mode yaml-mode) . symbol-overlay-mode)
-         (iedit-mode            . turn-off-symbol-overlay)
-         (iedit-mode-end        . turn-on-symbol-overlay))
-  :init (setq symbol-overlay-idle-time 0.1)
-  :config
-  (with-no-warnings
-    ;; Disable symbol highlighting while selecting
-    (defun turn-off-symbol-overlay (&rest _)
-      "Turn off symbol highlighting."
-      (interactive)
-      (symbol-overlay-mode -1))
-    (advice-add #'set-mark :after #'turn-off-symbol-overlay)
+;; (use-package symbol-overlay
+;;   :ensure t
+;;   :custom-face
+;;   (symbol-overlay-default-face ((t (:inherit region :background unspecified :foreground unspecified))))
+;;   (symbol-overlay-face-1 ((t (:inherit nerd-icons-blue :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-2 ((t (:inherit nerd-icons-pink :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-3 ((t (:inherit nerd-icons-yellow :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-4 ((t (:inherit nerd-icons-purple :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-5 ((t (:inherit nerd-icons-red :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-6 ((t (:inherit nerd-icons-orange :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-7 ((t (:inherit nerd-icons-green :background unspecified :foreground unspecified :inverse-video t))))
+;;   (symbol-overlay-face-8 ((t (:inherit nerd-icons-cyan :background unspecified :foreground unspecified :inverse-video t))))
+;;   :bind (("M-i" . symbol-overlay-put)
+;;          ("M-n" . symbol-overlay-jump-next)
+;;          ("M-p" . symbol-overlay-jump-prev)
+;;          ("M-N" . symbol-overlay-switch-forward)
+;;          ("M-P" . symbol-overlay-switch-backward)
+;;          ("M-C" . symbol-overlay-remove-all)
+;;          ([M-f3] . symbol-overlay-remove-all))
+;;   :hook (((prog-mode yaml-mode) . symbol-overlay-mode)
+;;          (iedit-mode            . turn-off-symbol-overlay)
+;;          (iedit-mode-end        . turn-on-symbol-overlay))
+;;   :init (setq symbol-overlay-idle-time 0.1)
+;;   :config
+;;   (with-no-warnings
+;;     ;; Disable symbol highlighting while selecting
+;;     (defun turn-off-symbol-overlay (&rest _)
+;;       "Turn off symbol highlighting."
+;;       (interactive)
+;;       (symbol-overlay-mode -1))
+;;     (advice-add #'set-mark :after #'turn-off-symbol-overlay)
 
-    (defun turn-on-symbol-overlay (&rest _)
-      "Turn on symbol highlighting."
-      (interactive)
-      (when (derived-mode-p 'prog-mode 'yaml-mode)
-        (symbol-overlay-mode 1)))
-    (advice-add #'deactivate-mark :after #'turn-on-symbol-overlay)))
+;;     (defun turn-on-symbol-overlay (&rest _)
+;;       "Turn on symbol highlighting."
+;;       (interactive)
+;;       (when (derived-mode-p 'prog-mode 'yaml-mode)
+;;         (symbol-overlay-mode 1)))
+;;     (advice-add #'deactivate-mark :after #'turn-on-symbol-overlay)))
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl

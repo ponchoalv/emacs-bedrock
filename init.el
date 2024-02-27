@@ -201,6 +201,7 @@ If the new path's directories does not exist, create them."
   :config
   (mapc #'disable-theme custom-enabled-themes)
 
+  (set-face-attribute 'default nil :font "Fira code" :height 140)
   (setopt modus-themes-mode-line '(accented borderless)
       modus-themes-bold-constructs t
       modus-themes-italic-constructs t
@@ -216,7 +217,7 @@ If the new path's directories does not exist, create them."
         (2 . (rainbow background 1.3))
         (3 . (rainbow bold 1.2))
         (t . (semilight 1.1))))
-  (load-theme 'modus-operandi t) ; for light theme, use modus-operandi
+  (load-theme 'modus-vivendi t) ; for light theme, use modus-operandi
 
   ;; (load-theme 'spacemacs-dark t)
   (setopt mouse-autoselect-window t))
