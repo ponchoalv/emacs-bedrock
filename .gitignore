@@ -6,3 +6,10 @@
 /auto-save-list/
 /eshell/
 /projects
+/.DS_Store
+/.mc-lists.el
+/tramp
+/org-roam.db
+/quelpa/
+/persistent-scratch/
+/.persistent-scratch
