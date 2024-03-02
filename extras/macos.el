@@ -43,6 +43,8 @@
          ("C-s-f" . toggle-frame-fullscreen)
          ("s-l" . goto-line)
          ("s-f" . consult-line)
+         ("s-<down>" . forward-paragraph)
+         ("s-<up>" . backward-paragraph)
          ("s-z" . undo)
          ("s-Z" . redo)
          ("s-c" . copy-region-as-kill)

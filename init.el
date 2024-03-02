@@ -110,7 +110,7 @@ If the new path's directories does not exist, create them."
 (setopt tab-always-indent 'complete)                   ; When I hit TAB, try to complete, otherwise, indent
 (setopt completion-styles '(basic initials substring)) ; Different styles to match input to candidates
 
-(setopt completion-auto-help 'always)                  ; Open completion always; `lazy' another option
+(setopt completion-auto-help 'lazy)                  ; Open completion always; `lazy' another option
 (setopt completions-max-height 20)                     ; This is arbitrary
 (setopt completions-detailed t)
 (setopt completions-format 'one-column)
