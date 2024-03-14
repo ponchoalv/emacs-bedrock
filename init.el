@@ -201,7 +201,7 @@ If the new path's directories does not exist, create them."
   :config
   (mapc #'disable-theme custom-enabled-themes)
 
-  (set-face-attribute 'default nil :font "Fira code" :height 140)
+  (set-face-attribute 'default nil :font "SF Mono" :weight 'semibold :height 120)
   (setopt modus-themes-mode-line '(accented borderless)
       modus-themes-bold-constructs t
       modus-themes-italic-constructs t
