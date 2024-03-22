@@ -201,7 +201,7 @@ If the new path's directories does not exist, create them."
   :config
   (mapc #'disable-theme custom-enabled-themes)
 
-  (set-face-attribute 'default nil :font "SF Mono" :weight 'semibold :height 120)
+  (set-face-attribute 'default nil :font "Fira Mono" :weight 'regular :height 130)
   (setopt modus-themes-mode-line '(accented borderless)
       modus-themes-bold-constructs t
       modus-themes-italic-constructs t
@@ -211,7 +211,7 @@ If the new path's directories does not exist, create them."
       modus-themes-prompts '(bold intense)
       modus-themes-org-blocks 'gray-background
       modus-themes-scale-headings t
-      modus-themes-region '(accented bg-only)
+      modus-themes-region '(bg-only)
       modus-themes-headings
       '((1 . (rainbow overline background 1.4))
         (2 . (rainbow background 1.3))
