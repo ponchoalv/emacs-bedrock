@@ -36,6 +36,7 @@
 
 ;; Some usefull macos key bindings
 (use-package emacs
+  :defer t
   :bind (("s-w" . delete-window)
          ("s-W" . delete-frame)
          ("s-n" . +macos/new-buffer)
@@ -73,5 +74,6 @@ This is a variadic `cl-pushnew'."
        (cl-pushnew ,var ,place :test #'equal))))
 
 (use-package auth-source
+  :defer t
   :config
   (pushnew! auth-sources 'macos-keychain-internet 'macos-keychain-generic))

@@ -25,6 +25,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package citar
+  :defer t
   :ensure t
   :bind (("C-c b" . citar-insert-citation)
          :map minibuffer-local-map
@@ -44,6 +45,7 @@
                                         ;  :config (citar-embark-mode))
 
 (use-package citar-org-roam
+  :defer t
   :diminish ""
   ;; To get this to work both Citar *and* Org-roam have to have been used
   :after citar org-roam
@@ -65,6 +67,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org-roam
+  :defer t
   :ensure t
   :config
   ;; Make sure the backlinks buffer always shows up in a side window
@@ -84,6 +87,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package denote
+  :defer t
   :ensure t
   :config
   ;; Accept any symbol in a .dir-locals.el file; makes it easier to use silos.

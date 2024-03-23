@@ -7,6 +7,7 @@
 
 ;; Emacs lisp mode
 (use-package elisp-mode
+  :defer t
   :ensure nil
   :bind (:map emacs-lisp-mode-map
          ("C-c C-x" . ielm)
@@ -181,6 +182,7 @@ Lisp function does not specify a special indentation."
 
 ;; Interactive macro expander
 (use-package macrostep
+  :defer t
   :ensure t
   :bind (:map emacs-lisp-mode-map
          ("C-c e" . macrostep-expand)
@@ -189,6 +191,7 @@ Lisp function does not specify a special indentation."
 
 ;; A better *Help* buffer
 (use-package helpful
+  :defer t
   :ensure t
   :bind (([remap describe-function] . helpful-callable)
          ([remap describe-command]  . helpful-command)
@@ -231,6 +234,7 @@ Lisp function does not specify a special indentation."
 
 ;; For ERT
 (use-package overseer
+  :defer t
   :ensure t
   :diminish
   :hook (emacs-lisp-mode . overseer-mode))

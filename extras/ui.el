@@ -17,6 +17,7 @@
 
 ;; Highlight symbols
 (use-package symbol-overlay
+  :defer t
   :ensure t
   :custom-face
   (symbol-overlay-default-face ((t (:inherit region :background unspecified :foreground unspecified))))
@@ -57,6 +58,7 @@
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
+  :defer t
   :ensure t
   :bind (:map diff-hl-command-map
          ("SPC" . diff-hl-mark-hunk))
@@ -86,6 +88,7 @@
 
 ;; Pulse current line
 (use-package pulse
+  :defer t
   :ensure nil
   :custom-face
   (pulse-highlight-start-face ((t (:inherit region :background unspecified))))
@@ -130,5 +133,6 @@
 
 ;; Pulse modified region
 (use-package goggles
+  :defer t
   :ensure t
   :hook ((prog-mode text-mode) . goggles-mode))

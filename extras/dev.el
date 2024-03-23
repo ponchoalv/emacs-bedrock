@@ -12,6 +12,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package emacs
+  :defer t
   :config
   ;; Treesitter config
 
@@ -37,6 +38,7 @@
 
 ;; Magit: best Git client to ever exist
 (use-package magit
+  :defer t
   :ensure t
   :bind (("C-x g" . magit-status)))
 
@@ -47,12 +49,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package yaml-mode
+  :defer t
   :ensure t)
 
 (use-package json-mode
+  :defer t
   :ensure t)
 
 (use-package terraform-ts-mode
+  :defer t
   :ensure t
   :quelpa (terraform-ts-mode
            :fetcher github
@@ -61,6 +66,7 @@
   ;; :load-path "~/paquetes/terraform-ts-mode")
 
 (use-package markdown-mode
+  :defer t
   :ensure t
   :hook ((markdown-mode . visual-line-mode))
   :config
@@ -81,6 +87,7 @@
 ;;  - https://www.masteringemacs.org/article/seamlessly-merge-multiple-documentation-sources-eldoc
 
 (use-package eglot
+  :defer t
   ;; no :ensure t here because it's built-in
 
   ;; Configure hooks to automatically turn-on eglot for selected modes
@@ -102,6 +109,7 @@
 ;; Preview via `grip'
 ;; Install: pip install grip
 (use-package grip-mode
+  :defer t
   :ensure t
   :defines org-mode-map
   :bind (("C-c p" . grip-mode))
@@ -116,6 +124,7 @@
 
 ;; Persistent the scratch buffer
 (use-package persistent-scratch
+  :defer t
   :ensure t
   :diminish
   :bind (:map persistent-scratch-mode-map

@@ -44,10 +44,12 @@ in some cases."
 
 ;; Icons
 (use-package nerd-icons
+  :defer t
   :ensure t)
 
 ;; Restore old window configurations
 (use-package winner
+  :defer t
   :ensure nil
   :commands (winner-undo winner-redo)
   :hook (after-init . winner-mode)
@@ -69,6 +71,7 @@ in some cases."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package avy
+  :defer t
   :ensure t
   :demand t
   :bind (("C-c j" . avy-goto-line)
@@ -82,6 +85,7 @@ in some cases."
 
 ;; Consult: Misc. enhanced commands
 (use-package consult
+  :defer t
   :ensure t
   :init
   ;; Use Consult to select xref locations with preview
@@ -130,10 +134,12 @@ in some cases."
 
 ;; Spell check options
 (use-package consult-flyspell
+  :defer t
   :ensure t
   :bind ("M-g s" . consult-flyspell))
 
 (use-package embark
+  :defer t
   :ensure t
   :demand t
   :after avy
@@ -154,6 +160,7 @@ in some cases."
   (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
 
 (use-package embark-consult
+  :defer t
   :ensure t
   :bind (:map minibuffer-mode-map
          ("C-c C-o" . embark-export)))
@@ -166,24 +173,28 @@ in some cases."
 
 ;; Vertico: better vertical completion for minibuffer commands
 (use-package vertico
+  :defer t
   :ensure t
   :init
   ;; You'll want to make sure that e.g. fido-mode isn't enabled
   (vertico-mode))
 
 (use-package vertico-directory
+  :defer t
   :after vertico
   :bind (:map vertico-map
               ("M-DEL" . vertico-directory-delete-word)))
 
 ;; Marginalia: annotations for minibuffer
 (use-package marginalia
+  :defer t
   :ensure t
   :config
   (marginalia-mode))
 
 ;; Popup completion-at-point
 (use-package corfu
+  :defer t
   :ensure t
   :custom
   (corfu-auto t)
@@ -200,6 +211,7 @@ in some cases."
 
 ;; Part of corfu
 (use-package corfu-popupinfo
+  :defer t
   :after corfu
   :hook (corfu-mode . corfu-popupinfo-mode)
   :custom
@@ -210,6 +222,7 @@ in some cases."
 
 ;; Make corfu popup come up in terminal overlay
 (use-package corfu-terminal
+  :defer t
   :if (not (display-graphic-p))
   :ensure t
   :config
@@ -229,6 +242,7 @@ in some cases."
 
 ;; Pretty icons for corfu
 (use-package kind-icon
+  :defer t
   :if (display-graphic-p)
   :ensure t
   :after corfu
@@ -237,6 +251,7 @@ in some cases."
 
 ;; shell stuff
 (use-package eshell
+  :defer t
   :init
   (defun bedrock/setup-eshell ()
     ;; Something funny is going on with how Eshell sets up its keymaps; this is
@@ -245,6 +260,7 @@ in some cases."
   :hook ((eshell-mode . bedrock/setup-eshell)))
 
 (use-package vterm
+  :defer t
   :ensure t
   :bind (:map vterm-mode-map
               ([f9] . (lambda ()
@@ -254,6 +270,7 @@ in some cases."
   :init (setq vterm-always-compile-module t))
 
 (use-package multi-vterm
+  :defer t
   :ensure t
   :bind ("C-c t" . multi-vterm)
   :custom (multi-vterm-buffer-name "vterm")
@@ -273,6 +290,7 @@ in some cases."
 
 ;; Orderless: powerful completion style
 (use-package orderless
+  :defer t
   :ensure t
   :config
   (setq completion-styles '(orderless)))
@@ -285,6 +303,7 @@ in some cases."
 
 ;; Modify search results en masse
 (use-package wgrep
+  :defer t
   :ensure t
   :config
   (setq wgrep-auto-save-buffer t))
@@ -292,6 +311,7 @@ in some cases."
 
 ;; Syntax check
 (use-package flymake
+  :defer t
   :diminish
   :hook (prog-mode . flymake-mode)
   :init (setq flymake-no-changes-timeout nil
@@ -301,6 +321,7 @@ in some cases."
         (append elisp-flymake-byte-compile-load-path load-path)))
 
 (use-package sideline-flymake
+  :defer t
   :ensure t
   :diminish sideline-mode
   :hook (flymake-mode . sideline-mode)
@@ -309,6 +330,7 @@ in some cases."
 
 ;; Misc.
 (use-package simple
+  :defer t
   :ensure nil
   :hook ((after-init . size-indication-mode)
          (text-mode . visual-line-mode)
@@ -377,37 +399,44 @@ in some cases."
 
 ;; Snippets
 (use-package yasnippet
+  :defer t
   :ensure t
   :diminish yas-minor-mode
   :hook (after-init . yas-global-mode))
 
 ;; Collection of yasnippet snippets
 (use-package yasnippet-snippets
+  :defer t
   :ensure t)
 
 ;; Yasnippet Completion At Point Function
 (use-package yasnippet-capf
+  :defer t
   :ensure t
   :init (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 ;; get snippets
 (use-package consult-yasnippet
+  :defer t
   :ensure t
   :bind ("M-g y" . consult-yasnippet))
 
 
 ;; use ibuffer for listing buffers
 (use-package ibuffer
+  :defer t
   :bind ("C-x C-b" . ibuffer)
   :init (setq ibuffer-filter-group-name-face '(:inherit (font-lock-string-face bold))))
 
 ;; Display icons for buffers
 (use-package nerd-icons-ibuffer
+  :defer t
   :ensure t
   :hook (ibuffer-mode . nerd-icons-ibuffer-mode))
 
 ;; Group ibuffer's list by project
 (use-package ibuffer-project
+  :defer t
   :ensure t
   :hook (ibuffer . (lambda ()
                      "Group ibuffer's list by project."

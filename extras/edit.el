@@ -1,6 +1,7 @@
 
 ;; Smartparents for lisp pleasure
 (use-package smartparens-mode
+  :defer t
   :ensure smartparens  ;; install the package
   :bind (("C-{" . sp-forward-barf-sexp)
          ("C-}" . sp-forward-slurp-sexp)
@@ -13,11 +14,13 @@
 
 ;; Delete selection if you insert
 (use-package delsel
+  :defer t
   :ensure nil
   :hook (after-init . delete-selection-mode))
 
 ;; Pass a URL to a WWW browser
 (use-package browse-url
+  :defer t
   :ensure nil
   :defines dired-mode-map
   :bind (("C-c C-z ." . browse-url-at-point)
@@ -32,6 +35,7 @@
 
 ;; Click to browse URL or to send to e-mail address
 (use-package goto-addr
+  :defer t
   :ensure t
   :hook ((text-mode . goto-address-mode)
          (prog-mode . goto-address-prog-mode)))
@@ -39,6 +43,7 @@
 
 ;; Quickly follow links
 (use-package link-hint
+  :defer t
   :ensure t
   :bind (("M-o" . link-hint-open-link)
          ("C-c l o" . link-hint-open-link)
@@ -47,6 +52,7 @@
 
 ;; Show number of matches in mode-line while searching
 (use-package anzu
+  :defer t
   :ensure t
   :bind (([remap query-replace] . anzu-query-replace)
          ([remap query-replace-regexp] . anzu-query-replace-regexp)
@@ -57,6 +63,7 @@
 
 ;; Drag stuff (lines, words, region, etc...) around
 (use-package drag-stuff
+  :defer t
   :ensure t
   :hook (after-init . drag-stuff-global-mode)
   :bind (("M-<up>" . drag-stuff-up)
@@ -66,6 +73,7 @@
 
 ;; A comprehensive visual interface to diff & patch
 (use-package ediff
+  :defer t
   :ensure nil
   :hook(;; show org ediffs unfolded
         (ediff-prepare-buffer . outline-show-all)
@@ -78,6 +86,7 @@
 
 ;; Edit multiple regions in the same way simultaneously
 (use-package iedit
+  :defer t
   :ensure t
   :defines desktop-minor-mode-table
   :bind (("C-;" . iedit-mode)
@@ -93,6 +102,7 @@
 
 ;; Multiple cursors
 (use-package multiple-cursors
+  :defer t
   :ensure t
   :bind (("C-S-c C-S-c"   . mc/edit-lines)
          ("C->"           . mc/mark-next-like-this)
@@ -107,6 +117,7 @@
 
 ;; Make stuff foldable
 (use-package hideshow
+  :defer t
   :ensure nil
   :hook (((prog-mode yaml-mode) . hs-minor-mode))
   :config

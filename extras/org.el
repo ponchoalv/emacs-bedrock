@@ -71,6 +71,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org
+  :defer t
   :hook ((org-mode . visual-line-mode)  ; wrap lines at word breaks
          (org-mode . flyspell-mode))    ; spell checking!
 
@@ -101,6 +102,7 @@
 ;; configs don't overlap. Once you've reached Phase 2, I'd recommend merging the
 ;; config from Phase 1. I've broken it up here for the sake of clarity.
 (use-package org
+  :defer t
   :config
   ;; Instead of just two states (TODO, DONE) we set up a few different states
   ;; that a task can be in.
@@ -139,6 +141,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org
+  :defer t
   :config
 
   ;; add support to go programs in org-babel
@@ -176,6 +179,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package org-roam
+  :defer t
   :ensure t
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n f" . org-roam-node-find)

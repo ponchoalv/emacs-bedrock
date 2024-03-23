@@ -7,6 +7,7 @@
 
 ;; Golang
 (use-package go-mode
+  :defer t
   :ensure t
   :functions (go-install-tools exec-path-from-shell-copy-envs)
   :autoload godoc-gogetdoc
@@ -87,6 +88,7 @@
 
 ;; Local Golang playground for short snippets
 (use-package go-playground
+  :defer t
   :ensure t
   :commands go-playground-mode)
 

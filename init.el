@@ -92,6 +92,7 @@ If the new path's directories does not exist, create them."
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
 (use-package which-key
+  :defer t
   :ensure t
   :config
   (which-key-mode))
@@ -201,7 +202,7 @@ If the new path's directories does not exist, create them."
   :config
   (mapc #'disable-theme custom-enabled-themes)
 
-  (set-face-attribute 'default nil :font "Fira Mono" :weight 'regular :height 130)
+  (set-face-attribute 'default nil :font "Fira Mono" :weight 'regular :height 140)
   (setopt modus-themes-mode-line '(accented borderless)
       modus-themes-bold-constructs t
       modus-themes-italic-constructs t
