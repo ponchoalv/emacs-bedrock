@@ -146,8 +146,9 @@
 
   ;; add support to go programs in org-babel
   (use-package ob-go
-  :ensure t
-  :diminish)
+    :defer t
+    :ensure t
+    :diminish)
 
   ;; Babel
   (setq org-confirm-babel-evaluate nil
