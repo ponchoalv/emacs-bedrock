@@ -263,6 +263,9 @@ If the new path's directories does not exist, create them."
 ;; MAC-OS common shortcuts
 (load-file (expand-file-name "extras/macos.el" user-emacs-directory))
 
+;; packages used at work
+(load-file (expand-file-name "extras/work.el" user-emacs-directory))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
 ;;;   Built-in customization framework
