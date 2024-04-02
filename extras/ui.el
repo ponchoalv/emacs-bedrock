@@ -58,7 +58,6 @@
 
 ;; Highlight uncommitted changes using VC
 (use-package diff-hl
-  :defer t
   :ensure t
   :bind (:map diff-hl-command-map
          ("SPC" . diff-hl-mark-hunk))

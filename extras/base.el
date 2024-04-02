@@ -285,7 +285,6 @@ in some cases."
 
 ;; Orderless: powerful completion style
 (use-package orderless
-  :defer t
   :ensure t
   :config
   (setq completion-styles '(orderless)))
@@ -305,7 +304,6 @@ in some cases."
 
 ;; Syntax check
 (use-package flymake
-  :defer t
   :diminish
   :hook (prog-mode . flymake-mode)
   :init (setq flymake-no-changes-timeout nil
