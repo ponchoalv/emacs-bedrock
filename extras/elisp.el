@@ -7,7 +7,6 @@
 
 ;; Emacs lisp mode
 (use-package elisp-mode
-  :defer t
   :ensure nil
   :bind (:map emacs-lisp-mode-map
          ("C-c C-x" . ielm)

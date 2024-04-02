@@ -57,7 +57,6 @@
   :ensure t)
 
 (use-package terraform-ts-mode
-  :defer t
   :ensure t
   :quelpa (terraform-ts-mode
            :fetcher github

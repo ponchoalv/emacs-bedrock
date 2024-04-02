@@ -42,7 +42,7 @@
   :config (quelpa-use-package-activate-advice))
 
 ;; If you want to turn off the welcome screen, uncomment this
-(setopt inhibit-splash-screen t)
+(setopt inhibit-splash-screen nil)
 
 (setopt initial-major-mode 'lisp-interaction-mode)  ; default mode for the *scratch* buffer
 (setopt display-time-default-load-average nil) ; this information is useless for most
@@ -92,7 +92,6 @@ If the new path's directories does not exist, create them."
 ;; which-key: shows a popup of available keybindings when typing a long key
 ;; sequence (e.g. C-x ...)
 (use-package which-key
-  :defer t
   :ensure t
   :config
   (which-key-mode))
@@ -218,7 +217,7 @@ If the new path's directories does not exist, create them."
         (2 . (rainbow background 1.3))
         (3 . (rainbow bold 1.2))
         (t . (semilight 1.1))))
-  (load-theme 'modus-vivendi t) ; for light theme, use modus-operandi
+  (load-theme 'modus-operandi t) ; for light theme, use modus-operandi
 
   ;; (load-theme 'spacemacs-dark t)
   (setopt mouse-autoselect-window t))

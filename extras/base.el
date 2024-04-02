@@ -49,7 +49,6 @@ in some cases."
 
 ;; Restore old window configurations
 (use-package winner
-  :defer t
   :ensure nil
   :commands (winner-undo winner-redo)
   :hook (after-init . winner-mode)
@@ -85,7 +84,6 @@ in some cases."
 
 ;; Consult: Misc. enhanced commands
 (use-package consult
-  :defer t
   :ensure t
   :init
   ;; Use Consult to select xref locations with preview
@@ -134,12 +132,10 @@ in some cases."
 
 ;; Spell check options
 (use-package consult-flyspell
-  :defer t
   :ensure t
   :bind ("M-g s" . consult-flyspell))
 
 (use-package embark
-  :defer t
   :ensure t
   :demand t
   :after avy
@@ -160,7 +156,6 @@ in some cases."
   (setf (alist-get ?. avy-dispatch-alist) 'bedrock/avy-action-embark))
 
 (use-package embark-consult
-  :defer t
   :ensure t
   :bind (:map minibuffer-mode-map
          ("C-c C-o" . embark-export)))
@@ -303,7 +298,6 @@ in some cases."
 
 ;; Modify search results en masse
 (use-package wgrep
-  :defer t
   :ensure t
   :config
   (setq wgrep-auto-save-buffer t))
@@ -321,7 +315,6 @@ in some cases."
         (append elisp-flymake-byte-compile-load-path load-path)))
 
 (use-package sideline-flymake
-  :defer t
   :ensure t
   :diminish sideline-mode
   :hook (flymake-mode . sideline-mode)
@@ -330,7 +323,6 @@ in some cases."
 
 ;; Misc.
 (use-package simple
-  :defer t
   :ensure nil
   :hook ((after-init . size-indication-mode)
          (text-mode . visual-line-mode)

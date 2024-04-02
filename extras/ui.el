@@ -88,7 +88,6 @@
 
 ;; Pulse current line
 (use-package pulse
-  :defer t
   :ensure nil
   :custom-face
   (pulse-highlight-start-face ((t (:inherit region :background unspecified))))

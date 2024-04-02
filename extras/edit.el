@@ -15,12 +15,10 @@
 ;; Delete selection if you insert
 (use-package delsel
   :defer t
-  :ensure nil
   :hook (after-init . delete-selection-mode))
 
 ;; Pass a URL to a WWW browser
 (use-package browse-url
-  :defer t
   :ensure nil
   :defines dired-mode-map
   :bind (("C-c C-z ." . browse-url-at-point)
@@ -73,7 +71,6 @@
 
 ;; A comprehensive visual interface to diff & patch
 (use-package ediff
-  :defer t
   :ensure nil
   :hook(;; show org ediffs unfolded
         (ediff-prepare-buffer . outline-show-all)
@@ -117,7 +114,6 @@
 
 ;; Make stuff foldable
 (use-package hideshow
-  :defer t
   :ensure nil
   :hook (((prog-mode yaml-mode) . hs-minor-mode))
   :config
