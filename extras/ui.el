@@ -3,17 +3,17 @@
 ;;  :ensure t)
 
 ;; ;; Nicer modeline
-;; (use-package doom-modeline
-;;   :ensure t
-;;   :hook (after-init . doom-modeline-mode)
-;;   :config
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode)
+  :config
 
-;;   (setopt doom-modeline-buffer-file-name-style 'relative-from-project))
+  (setopt doom-modeline-buffer-file-name-style 'relative-from-project))
 
 ;; ;; A minor-mode menu for mode-line
-;; (use-package minions
-;;   :ensure t
-;;   :hook (doom-modeline-mode . minions-mode))
+(use-package minions
+  :ensure t
+  :hook (doom-modeline-mode . minions-mode))
 
 ;; Highlight symbols
 (use-package symbol-overlay
